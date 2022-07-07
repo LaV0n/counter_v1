@@ -1,0 +1,71 @@
+.App {
+    background-color: #2a2c36;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:30px;
+}
+
+.block {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    border: 2px solid #63d9fc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.counter {
+    width: 350px;
+    background-color: #63d9fc;
+    height: 140px;
+    position: relative;
+    top: 25px;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 5rem;
+    color: #2a2c36;
+    font-weight: bold;
+}
+.number_5 {
+    color: red;
+    font-size: 6rem;
+}
+.buttons {
+    position: absolute;
+    width: 350px;
+    height: 70px;
+    bottom: 25px;
+    border: 2px solid  #63d9fc;
+    border-radius: 5px;
+    display: flex;
+    gap:10px;
+    justify-content: space-around;
+}
+.button {
+    margin: 10px;
+    font-size: 2rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #2a2c36;
+    background-color: #63d9fc;
+    border-radius: 10px;
+    border:none;
+    cursor: pointer;
+
+}
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.button:enabled:active {
+    transform:scale(0.8);
+}
+
+
+
+
