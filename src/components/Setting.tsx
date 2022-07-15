@@ -24,8 +24,16 @@ function Setting(props: SettingType) {
 
     return (
         <div className="block">
-            <span>start number</span><input type="number" value={props.startNumber} onChange={startNumberHandler}/>
-            <span>max number</span><input type="number" value={props.maxNumber} onChange={maxNumberHandler}/>
+            <div className="input-setting">
+                <div>
+                    <span>start number </span>
+                    <input type="number" value={props.startNumber} onChange={startNumberHandler}/>
+                </div>
+                <div>
+                    <span>max number </span>
+                    <input type="number" value={props.maxNumber} onChange={maxNumberHandler}/>
+                </div>
+            </div>
             <div className="buttons">
                 <button disabled={false}
                         className="button"
