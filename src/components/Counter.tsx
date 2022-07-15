@@ -1,37 +1,39 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './../App.css';
 
-type CounterType ={
+type CounterType = {
     startNumber: number
-    maxNumber:number
+    maxNumber: number
+    counter:number
+    addButton:()=>void
+    resetButton:()=>void
 }
 
 function Counter(props:CounterType) {
 
-    let [counter, setCounter] = useState<number>(props.startNumber);
-
     const addButton = () => {
-        setCounter(counter+1);
+        props.addButton()
     }
     const resetButton = () => {
-      setCounter(props.startNumber);
+        props.resetButton()
     }
 
     return (
-            <div className="block">
-                <div className={counter !==props.maxNumber? "counter": " counter number_5" } >{counter}</div>
-                <div className="buttons">
-                    <button disabled={counter>=props.maxNumber}
-                            className="button"
-                            onClick={addButton}
-                    >inc
-                    </button>
-                    <button disabled={counter===props.startNumber}
-                            className="button"
-                            onClick={resetButton}
-                    >reset</button>
-                </div>
+        <div className="block">
+            <div className={props.counter !== props.maxNumber ? "counter" : " counter number_5"}>{props.counter}</div>
+            <div className="buttons">
+                <button disabled={props.counter >= props.maxNumber}
+                        className="button"
+                        onClick={addButton}
+                >inc
+                </button>
+                <button disabled={props.counter === props.startNumber}
+                        className="button"
+                        onClick={resetButton}
+                >reset
+                </button>
             </div>
+        </div>
     );
 }
 

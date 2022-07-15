@@ -1,33 +1,35 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import './../App.css';
-import Counter from "./Counter";
 
-type SettingType ={
+
+type SettingType = {
     startNumber: number
-    maxNumber:number
+    maxNumber: number
+    setStart: (value: number) => void
+    setMax: (value: number) => void
+    setButton: () => void
 }
 
-function Setting(props:SettingType) {
-
-    let startNumber:number;
-    let maxNumber=8;
-
-    const addButton = () => {
-         <Counter startNumber={startNumber} maxNumber={maxNumber}/>;
+function Setting(props: SettingType) {
+    const setButton = () => {
+        props.setButton()
     }
 
-     let startNumberHandler =(n:ChangeEvent<HTMLInputElement>)=>{
-        startNumber=n.currentTarget.valueAsNumber;
-     }
+    let startNumberHandler = (n: ChangeEvent<HTMLInputElement>) => {
+        props.setStart(n.currentTarget.valueAsNumber);
+    }
+    let maxNumberHandler = (n: ChangeEvent<HTMLInputElement>) => {
+        props.setMax(n.currentTarget.valueAsNumber);
+    }
 
     return (
         <div className="block">
-            <span>start number</span><input type="number" value={startNumber} onChange={startNumberHandler}/>
-            <span>max number</span><input type="number" value={maxNumber}/>
+            <span>start number</span><input type="number" value={props.startNumber} onChange={startNumberHandler}/>
+            <span>max number</span><input type="number" value={props.maxNumber} onChange={maxNumberHandler}/>
             <div className="buttons">
                 <button disabled={false}
                         className="button"
-                        onClick={addButton}
+                        onClick={setButton}
                 >set
                 </button>
             </div>
