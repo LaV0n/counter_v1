@@ -20,7 +20,7 @@ function Counter(props:CounterType) {
 
     return (
         <div className="block">
-            <div className={props.counter !== props.maxNumber ? "counter" : " counter number_5"}>{props.counter}</div>
+            <div className={props.counter !== props.maxNumber ? "counter" : " counter last-number"}>{props.counter}</div>
             <div className="buttons">
                 <button disabled={props.counter >= props.maxNumber}
                         className="button"
