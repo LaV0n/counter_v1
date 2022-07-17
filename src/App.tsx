@@ -5,13 +5,19 @@ import Setting from "./components/Setting";
 
 
 function App() {
-    let start= localStorage.getItem("startNumber") ;
+    let start = localStorage.getItem("startNumber");
     let max = localStorage.getItem("maxNumber");
 
-    let [startNumber, setStartNumber] = useState<number>(start!==null?JSON.parse(start):0);
-    let [maxNumber, setMaxNumber] = useState<number> (max!==null?JSON.parse(max):0);
+    let [startNumber, setStartNumber] = useState<number>(start !== null ? JSON.parse(start) : 0);
+    let [maxNumber, setMaxNumber] = useState<number>(max !== null ? JSON.parse(max) : 0);
 
     let [counter, setCounter] = useState<number>(startNumber);
+
+    let error: string | null = null;
+
+    if (startNumber >= maxNumber || startNumber < 0) {
+        error = "incorrect entry"
+    }
 
     const setStart = (number: number) => {
         setStartNumber(number);
@@ -34,9 +40,13 @@ function App() {
     return (
         <div className="App">
             <Setting startNumber={startNumber} maxNumber={maxNumber} setStart={setStart} setMax={setMax}
-                     setButton={setButton}/>
+                     setButton={setButton}
+                     error={error}
+            />
             <Counter startNumber={startNumber} maxNumber={maxNumber} counter={counter} resetButton={resetButton}
-                     addButton={addButton}/>
+                     addButton={addButton}
+                     error={error}
+            />
         </div>
     );
 }
