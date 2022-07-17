@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/monday-test/static/css/main.13390f1b.css",
+    "main.js": "/monday-test/static/js/main.4195700c.js",
+    "index.html": "/monday-test/index.html",
+    "main.13390f1b.css.map": "/monday-test/static/css/main.13390f1b.css.map",
+    "main.4195700c.js.map": "/monday-test/static/js/main.4195700c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.13390f1b.css",
+    "static/js/main.4195700c.js"
+  ]
+}
