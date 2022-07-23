@@ -10,20 +10,21 @@ function App() {
 
     let [startNumber, setStartNumber] = useState<number>(start !== null ? JSON.parse(start) : 0);
     let [maxNumber, setMaxNumber] = useState<number>(max !== null ? JSON.parse(max) : 0);
-
+    let [settingOn,setSettingOn] =useState(false);
     let [counter, setCounter] = useState<number>(startNumber);
 
     let error: string | null = null;
-
-    if (startNumber >= maxNumber || startNumber < 0) {
+    if (startNumber >= maxNumber || startNumber < 0 || isNaN(startNumber) || isNaN(maxNumber) ) {
         error = "incorrect entry"
     }
 
     const setStart = (number: number) => {
         setStartNumber(number);
+        setSettingOn(true);
     }
     const setMax = (number: number) => {
         setMaxNumber(number);
+        setSettingOn(true);
     }
     const addButton = () => {
         setCounter(counter + 1);
@@ -35,6 +36,7 @@ function App() {
         resetButton();
         localStorage.setItem("startNumber", JSON.stringify(startNumber));
         localStorage.setItem("maxNumber", JSON.stringify(maxNumber));
+        setSettingOn(false);
     }
 
     return (
@@ -46,6 +48,7 @@ function App() {
             <Counter startNumber={startNumber} maxNumber={maxNumber} counter={counter} resetButton={resetButton}
                      addButton={addButton}
                      error={error}
+                     settingOn ={settingOn}
             />
         </div>
     );

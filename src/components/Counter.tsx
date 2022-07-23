@@ -8,6 +8,7 @@ type CounterType = {
     addButton: () => void
     resetButton: () => void
     error: string | null
+    settingOn:boolean
 }
 
 function Counter(props: CounterType) {
@@ -23,7 +24,7 @@ function Counter(props: CounterType) {
         <div className="block">
             <div
                 className={props.error ? "counter incorrect-message" : (props.counter !== props.maxNumber ? "counter" : " counter last-number")}>
-                {props.error ? props.error : props.counter}
+                {props.error ? props.error : (props.settingOn ? 'setting': props.counter)}
             </div>
             <div className="buttons">
                 <button disabled={props.error ? true : props.counter >= props.maxNumber}
