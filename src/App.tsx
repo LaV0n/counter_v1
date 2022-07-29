@@ -26,10 +26,12 @@ function App() {
         setStartNumber(number);
         setSettingOn(true);
     }
+
     const setMax = (number: number) => {
         setMaxNumber(number);
         setSettingOn(true);
     }
+
     const addButton = () => {
         setCounter(counter + 1);
     }
