@@ -5,36 +5,38 @@ type CounterType = {
     startNumber: number
     maxNumber: number
     counter: number
-    addButton: () => void
-    resetButton: () => void
+    doOneStepCounter: () => void
+    resetCounter: () => void
     error: string | null
     settingOn:boolean
 }
 
-function Counter(props: CounterType) {
+export function Counter (props: CounterType) {
 
-    const addButton = () => {
-        props.addButton()
+    const doOneStepCounterHandler = () => {
+        props.doOneStepCounter()
     }
-    const resetButton = () => {
-        props.resetButton()
+    const resetCounterHandler = () => {
+        props.resetCounter()
     }
 
     return (
         <div className="block">
             <div
-                className={props.error ? "counter incorrect-message" : (props.counter !== props.maxNumber ? "counter" : " counter last-number")}>
+                className={props.error
+                    ? "counter incorrect-message"
+                    : (props.counter !== props.maxNumber ? "counter" : " counter last-number")}>
                 {props.error ? props.error : (props.settingOn ? 'setting': props.counter)}
             </div>
             <div className="buttons">
                 <button disabled={props.error ? true : props.counter >= props.maxNumber}
                         className="button"
-                        onClick={addButton}
+                        onClick={doOneStepCounterHandler}
                 >inc
                 </button>
                 <button disabled={props.error ? true : props.counter === props.startNumber}
                         className="button"
-                        onClick={resetButton}
+                        onClick={resetCounterHandler}
                 >reset
                 </button>
             </div>
@@ -42,4 +44,4 @@ function Counter(props: CounterType) {
     );
 }
 
-export default Counter;
+

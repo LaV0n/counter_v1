@@ -1,60 +1,68 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
-import Counter from "./components/Counter";
-import Setting from "./components/Setting";
+import {Counter} from "./components/Counter";
+import {Setting} from "./components/Setting";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./state/store";
+import {
+    checkingError,
+    resetCounter,
+    setMaxNumber,
+    setSetting,
+    setStartNumber,
+    stepCounter
+} from "./state/counter-reducer";
+
+export type CounterStateType = {
+    startNumber: number
+    maxNumber: number
+    counter: number
+    error: string | null
+    settingOn: boolean
+}
 
 
 function App() {
-   /* let start = localStorage.getItem("startNumber");
-    let max = localStorage.getItem("maxNumber");
 
-    let [startNumber, setStartNumber] = useState<number>(start !== null ? JSON.parse(start) : 0);
-    let [maxNumber, setMaxNumber] = useState<number>(max !== null ? JSON.parse(max) : 0);*/
+    let counterState = useSelector<AppRootStateType, CounterStateType>(state => state.counter)
+    let dispatch = useDispatch()
 
-    let [startNumber, setStartNumber] = useState<number>( 0);
-    let [maxNumber, setMaxNumber] = useState<number>(0);
-
-    let [settingOn,setSettingOn] =useState(false);
-    let [counter, setCounter] = useState<number>(startNumber);
-
-    let error: string | null = null;
-    if (startNumber >= maxNumber || startNumber < 0 || isNaN(startNumber) || isNaN(maxNumber) ) {
-        error = "incorrect entry"
+    const setStartNumberHandler = (number: number) => {
+        dispatch(setStartNumber(number))
+        dispatch(checkingError())
     }
 
-    const setStart = (number: number) => {
-        setStartNumber(number);
-        setSettingOn(true);
+    const setMaxNumberHandler = (number: number) => {
+        dispatch(setMaxNumber(number))
+        dispatch(checkingError())
     }
 
-    const setMax = (number: number) => {
-        setMaxNumber(number);
-        setSettingOn(true);
+    const doOneStepCounterHandler = () => {
+        dispatch(stepCounter())
     }
-
-    const addButton = () => {
-        setCounter(counter + 1);
+    const resetCounterHandler = () => {
+        dispatch(resetCounter())
     }
-    const resetButton = () => {
-        setCounter(startNumber);
-    }
-    const setButton = () => {
-        resetButton();
-       // localStorage.setItem("startNumber", JSON.stringify(startNumber));
-       // localStorage.setItem("maxNumber", JSON.stringify(maxNumber));
-        setSettingOn(false);
+    const setSettingHandler = () => {
+        dispatch(setSetting())
     }
 
     return (
         <div className="App">
-            <Setting startNumber={startNumber} maxNumber={maxNumber} setStart={setStart} setMax={setMax}
-                     setButton={setButton}
-                     error={error}
+            <Setting startNumber={counterState.startNumber}
+                     maxNumber={counterState.maxNumber}
+                     setStartNumber={setStartNumberHandler}
+                     setMaxNumber={setMaxNumberHandler}
+                     setSetting={setSettingHandler}
+                     error={counterState.error}
             />
-            <Counter startNumber={startNumber} maxNumber={maxNumber} counter={counter} resetButton={resetButton}
-                     addButton={addButton}
-                     error={error}
-                     settingOn ={settingOn}
+            <Counter startNumber={counterState.startNumber}
+                     maxNumber={counterState.maxNumber}
+                     counter={counterState.counter}
+                     resetCounter={resetCounterHandler}
+                     doOneStepCounter={doOneStepCounterHandler}
+                     error={counterState.error}
+                     settingOn={counterState.settingOn}
             />
         </div>
     );

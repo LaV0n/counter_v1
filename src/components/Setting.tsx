@@ -4,22 +4,23 @@ import './../App.css';
 type SettingType = {
     startNumber: number
     maxNumber: number
-    setStart: (value: number) => void
-    setMax: (value: number) => void
-    setButton: () => void
+    setStartNumber: (value: number) => void
+    setMaxNumber: (value: number) => void
+    setSetting: () => void
     error: string | null
 }
 
-function Setting(props: SettingType) {
-    const setButton = () => {
-        props.setButton()
+export function Setting (props: SettingType) {
+
+    const setSettingHandler = () => {
+        props.setSetting()
     }
 
-    let startNumberHandler = (n: ChangeEvent<HTMLInputElement>) => {
-        props.setStart(n.currentTarget.valueAsNumber);
+    const setStartNumberHandler = (n: ChangeEvent<HTMLInputElement>) => {
+        props.setStartNumber(n.currentTarget.valueAsNumber);
     }
-    let maxNumberHandler = (n: ChangeEvent<HTMLInputElement>) => {
-        props.setMax(n.currentTarget.valueAsNumber);
+    const setMaxNumberHandler = (n: ChangeEvent<HTMLInputElement>) => {
+        props.setMaxNumber(n.currentTarget.valueAsNumber);
     }
 
     return (
@@ -27,19 +28,19 @@ function Setting(props: SettingType) {
             <div className="input-setting">
                 <div>
                     <span>start number: </span>
-                    <input type="number" value={props.startNumber} onChange={startNumberHandler}
+                    <input type="number" value={props.startNumber} onChange={setStartNumberHandler}
                            className={props.error ? "input-error" : "input-correct"}/>
                 </div>
                 <div>
                     <span>max number: </span>
-                    <input type="number" value={props.maxNumber} onChange={maxNumberHandler}
+                    <input type="number" value={props.maxNumber} onChange={setMaxNumberHandler}
                            className={props.error ? "input-error" : "input-correct"}/>
                 </div>
             </div>
             <div className="buttons">
                 <button disabled={!!props.error}
                         className="button"
-                        onClick={setButton}
+                        onClick={setSettingHandler}
                 >set
                 </button>
             </div>
@@ -47,4 +48,4 @@ function Setting(props: SettingType) {
     );
 }
 
-export default Setting;
+
