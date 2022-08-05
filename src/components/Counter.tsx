@@ -29,12 +29,12 @@ export function Counter (props: CounterType) {
                 {props.error ? props.error : (props.settingOn ? 'setting': props.counter)}
             </div>
             <div className="buttons">
-                <button disabled={props.error ? true : props.counter >= props.maxNumber}
+                <button disabled={props.error || props.settingOn ? true : props.counter >= props.maxNumber}
                         className="button"
                         onClick={doOneStepCounterHandler}
                 >inc
                 </button>
-                <button disabled={props.error ? true : props.counter === props.startNumber}
+                <button disabled={props.error || props.settingOn ? true : props.counter === props.startNumber}
                         className="button"
                         onClick={resetCounterHandler}
                 >reset

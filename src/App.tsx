@@ -5,7 +5,6 @@ import {Setting} from "./components/Setting";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {
-    checkingError,
     resetCounter,
     setMaxNumber,
     setSetting,
@@ -27,14 +26,19 @@ function App() {
     let counterState = useSelector<AppRootStateType, CounterStateType>(state => state.counter)
     let dispatch = useDispatch()
 
+    counterState.error =null;
+    if (counterState.startNumber >= counterState.maxNumber
+        || counterState.startNumber < 0
+        || isNaN(counterState.startNumber)
+        || isNaN(counterState.maxNumber)) {
+        counterState.error = "incorrect entry"}
+
     const setStartNumberHandler = (number: number) => {
         dispatch(setStartNumber(number))
-        dispatch(checkingError())
     }
 
     const setMaxNumberHandler = (number: number) => {
         dispatch(setMaxNumber(number))
-        dispatch(checkingError())
     }
 
     const doOneStepCounterHandler = () => {

@@ -1,6 +1,5 @@
 import {combineReducers, legacy_createStore} from "redux";
 import {
-    CheckingErrorACType,
     CounterReducer, ResetCounterACType, SetMaxNumberACType, SetSettingACType, SetStartNumberACType, StepCounterACType
 } from "./counter-reducer";
 
@@ -9,8 +8,7 @@ export type ActionsType =
     SetStartNumberACType |
     SetMaxNumberACType |
     StepCounterACType |
-    ResetCounterACType |
-    CheckingErrorACType
+    ResetCounterACType
 
 
 const rootReducer = combineReducers({

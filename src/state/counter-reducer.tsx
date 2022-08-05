@@ -18,9 +18,7 @@ export type SetMaxNumberACType = {
     type: 'SET_MAX_NUMBER'
     n: number
 }
-export type CheckingErrorACType ={
-    type: 'CHECKING_ERROR'
-}
+
 
  let initialState: CounterStateType = {
     startNumber:0,
@@ -47,15 +45,6 @@ export const CounterReducer = (state = initialState, action: ActionsType) => {
         case 'SET_MAX_NUMBER': {
             return {...state,maxNumber:action.n, settingOn:true}
         }
-        case 'CHECKING_ERROR':{
-            let err=null;
-            if (state.startNumber >= state.maxNumber
-                || state.startNumber < 0
-                || isNaN(state.startNumber)
-                || isNaN(state.maxNumber)) {
-                err = "incorrect entry"}
-            return {...state, error: err}
-        }
         default:
             return state
     }
@@ -75,7 +64,4 @@ export const setStartNumber = (n: number): SetStartNumberACType => {
 }
 export const setMaxNumber = (n: number): SetMaxNumberACType => {
     return {type: 'SET_MAX_NUMBER', n: n}
-}
-export const checkingError = (): CheckingErrorACType => {
-    return {type: 'CHECKING_ERROR'}
 }
