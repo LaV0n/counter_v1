@@ -11,6 +11,7 @@ import {
     setStartNumber,
     stepCounter
 } from "./state/counter-reducer";
+import {saveState} from "./utils/localStorage-util";
 
 export type CounterStateType = {
     startNumber: number
@@ -22,16 +23,16 @@ export type CounterStateType = {
 
 
 function App() {
-
     let counterState = useSelector<AppRootStateType, CounterStateType>(state => state.counter)
     let dispatch = useDispatch()
 
-    counterState.error =null;
+    counterState.error = null;
     if (counterState.startNumber >= counterState.maxNumber
         || counterState.startNumber < 0
         || isNaN(counterState.startNumber)
         || isNaN(counterState.maxNumber)) {
-        counterState.error = "incorrect entry"}
+        counterState.error = "incorrect entry"
+    }
 
     const setStartNumberHandler = (number: number) => {
         dispatch(setStartNumber(number))
@@ -48,7 +49,8 @@ function App() {
         dispatch(resetCounter())
     }
     const setSettingHandler = () => {
-        dispatch(setSetting())
+        dispatch(setSetting());
+        saveState( counterState.startNumber, counterState.maxNumber)
     }
 
     return (
