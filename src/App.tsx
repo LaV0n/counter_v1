@@ -2,16 +2,9 @@ import React from 'react';
 import './App.css';
 import {Counter} from "./components/Counter";
 import {Setting} from "./components/Setting";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store";
-import {
-    resetCounter,
-    setMaxNumber,
-    setSetting,
-    setStartNumber,
-    stepCounter
-} from "./state/counter-reducer";
 import {saveState} from "./utils/localStorage-util";
+import counter from './store/counter'
+import {observer} from "mobx-react-lite";
 
 export type CounterStateType = {
     startNumber: number
@@ -22,56 +15,54 @@ export type CounterStateType = {
 }
 
 
-function App() {
-    let counterState = useSelector<AppRootStateType, CounterStateType>(state => state.counter)
-    let dispatch = useDispatch()
+const  App= observer(()=> {
 
-    counterState.error = null;
-    if (counterState.startNumber >= counterState.maxNumber
-        || counterState.startNumber < 0
-        || isNaN(counterState.startNumber)
-        || isNaN(counterState.maxNumber)) {
-        counterState.error = "incorrect entry"
+
+    if (counter.startNumber >= counter.maxNumber
+        || counter.startNumber < 0
+        || isNaN(counter.startNumber)
+        || isNaN(counter.maxNumber)) {
+        counter.error = "incorrect entry"
     }
 
     const setStartNumberHandler = (number: number) => {
-        dispatch(setStartNumber(number))
+        counter.setStartNumber(number)
     }
 
     const setMaxNumberHandler = (number: number) => {
-        dispatch(setMaxNumber(number))
+        counter.setMaxNumber(number)
     }
 
     const doOneStepCounterHandler = () => {
-        dispatch(stepCounter())
+        counter.stepCounter()
     }
     const resetCounterHandler = () => {
-        dispatch(resetCounter())
+        counter.resetCounter()
     }
     const setSettingHandler = () => {
-        dispatch(setSetting());
-        saveState( counterState.startNumber, counterState.maxNumber)
+        counter.setSetting();
+        saveState( counter.startNumber, counter.maxNumber)
     }
 
     return (
         <div className="App">
-            <Setting startNumber={counterState.startNumber}
-                     maxNumber={counterState.maxNumber}
+            <Setting startNumber={counter.startNumber}
+                     maxNumber={counter.maxNumber}
                      setStartNumber={setStartNumberHandler}
                      setMaxNumber={setMaxNumberHandler}
                      setSetting={setSettingHandler}
-                     error={counterState.error}
+                     error={counter.error}
             />
-            <Counter startNumber={counterState.startNumber}
-                     maxNumber={counterState.maxNumber}
-                     counter={counterState.counter}
+            <Counter startNumber={counter.startNumber}
+                     maxNumber={counter.maxNumber}
+                     counter={counter.counter}
                      resetCounter={resetCounterHandler}
                      doOneStepCounter={doOneStepCounterHandler}
-                     error={counterState.error}
-                     settingOn={counterState.settingOn}
+                     error={counter.error}
+                     settingOn={counter.settingOn}
             />
         </div>
     );
 }
-
+)
 export default App;
